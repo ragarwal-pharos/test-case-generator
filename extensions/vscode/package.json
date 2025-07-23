@@ -1,0 +1,222 @@
+{
+  "name": "testgen-vscode",
+  "displayName": "Test Case Generator",
+  "description": "AI-powered test case generation for C#, TypeScript, Python and more",
+  "version": "1.0.0",
+  "publisher": "testgen",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "test",
+    "testing",
+    "unit test",
+    "test generation",
+    "c#",
+    "typescript",
+    "python",
+    "ai"
+  ],
+  "activationEvents": [
+    "onLanguage:csharp",
+    "onLanguage:typescript",
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "testgen.generateTests",
+        "title": "Generate Tests",
+        "category": "TestGen",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "testgen.generateTestsForFile",
+        "title": "Generate Tests for Current File",
+        "category": "TestGen",
+        "icon": "$(test-view-icon)"
+      },
+      {
+        "command": "testgen.generateTestsForProject",
+        "title": "Generate Tests for Entire Project",
+        "category": "TestGen",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "testgen.openSettings",
+        "title": "Open TestGen Settings",
+        "category": "TestGen",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "testgen.showTestPreview",
+        "title": "Preview Generated Tests",
+        "category": "TestGen",
+        "icon": "$(preview)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "testgen.generateTests",
+          "when": "resourceExtname =~ /\\.(cs|ts|py)$/",
+          "group": "testgen@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "testgen.generateTestsForFile",
+          "when": "editorLangId =~ /(csharp|typescript|python)/",
+          "group": "testgen@1"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "testgen.generateTestsForFile",
+          "when": "editorLangId =~ /(csharp|typescript|python)/",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "testgen.generateTests",
+          "when": "true"
+        },
+        {
+          "command": "testgen.generateTestsForFile",
+          "when": "editorLangId =~ /(csharp|typescript|python)/"
+        },
+        {
+          "command": "testgen.generateTestsForProject",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "TestGen Configuration",
+      "properties": {
+        "testgen.cliPath": {
+          "type": "string",
+          "default": "testgen",
+          "description": "Path to the TestGen CLI executable"
+        },
+        "testgen.outputDirectory": {
+          "type": "string",
+          "default": "tests",
+          "description": "Default output directory for generated tests"
+        },
+        "testgen.testFramework": {
+          "type": "string",
+          "enum": [
+            "xunit",
+            "nunit",
+            "mstest",
+            "jest",
+            "mocha",
+            "pytest"
+          ],
+          "default": "xunit",
+          "description": "Default test framework to use"
+        },
+        "testgen.autoGenerate": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically generate tests when saving files"
+        },
+        "testgen.showProgress": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show progress notifications during test generation"
+        },
+        "testgen.enableAI": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI-powered test suggestions"
+        },
+        "testgen.maxTestsPerMethod": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Maximum number of test cases to generate per method"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "testgen-config",
+        "aliases": [
+          "TestGen Config"
+        ],
+        "extensions": [
+          ".testgen.json"
+        ],
+        "configuration": "./syntaxes/testgen-config.json"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "*.testgen.json",
+        "url": "./schemas/testgen-config.schema.json"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "testgenExplorer",
+          "name": "Test Generation",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "testgen",
+          "title": "TestGen",
+          "icon": "$(beaker)"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.120",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^2.22.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ragarwal-pharos/test-case-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ragarwal-pharos/test-case-generator/issues"
+  },
+  "homepage": "https://github.com/ragarwal-pharos/test-case-generator#readme",
+  "license": "MIT",
+  "author": ""
+}
