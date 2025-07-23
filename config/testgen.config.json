@@ -1,0 +1,149 @@
+{
+  "$schema": "./schema/testgen.schema.json",
+  "project": {
+    "name": "Sample .NET Project",
+    "rootPath": "./",
+    "outputPath": "./GeneratedTests",
+    "testFrameworks": {
+      "csharp": "xunit",
+      "typescript": "jest"
+    },
+    "sourceDirectories": [
+      "./Controllers",
+      "./Services",
+      "./Models",
+      "./wwwroot/js",
+      "./Views"
+    ]
+  },
+  "analysis": {
+    "includePrivateMethods": false,
+    "includeInternalMethods": true,
+    "generateMocks": true,
+    "analyzeDependencies": true,
+    "maxDepth": 3,
+    "excludePatterns": [
+      "*.designer.cs",
+      "*.generated.cs",
+      "*.min.js",
+      "*.spec.ts",
+      "*.test.ts"
+    ]
+  },
+  "generation": {
+    "testNamingConvention": "MethodName_Scenario_ExpectedResult",
+    "includeArrangeActAssert": true,
+    "generateTestData": true,
+    "generateNegativeTests": true,
+    "includeDocumentation": true,
+    "testMethodPrefix": "Test_",
+    "mockFramework": "Moq"
+  },
+  "fileTypes": {
+    "csharp": {
+      "enabled": true,
+      "extensions": [".cs"],
+      "excludePatterns": [
+        "*.designer.cs", 
+        "*.generated.cs",
+        "**/bin/**",
+        "**/obj/**"
+      ],
+      "testSettings": {
+        "generateConstructorTests": true,
+        "generatePropertyTests": true,
+        "generateMethodTests": true,
+        "generateExceptionTests": true,
+        "testFramework": "xunit",
+        "assertionLibrary": "FluentAssertions"
+      }
+    },
+    "typescript": {
+      "enabled": true,
+      "extensions": [".ts", ".tsx"],
+      "excludePatterns": [
+        "*.spec.ts", 
+        "*.test.ts",
+        "*.d.ts",
+        "**/node_modules/**"
+      ],
+      "testSettings": {
+        "testFramework": "jest",
+        "generateAsyncTests": true,
+        "generateTypeTests": true,
+        "mockLibrary": "jest"
+      }
+    },
+    "html": {
+      "enabled": true,
+      "extensions": [".html", ".cshtml", ".razor"],
+      "excludePatterns": [
+        "**/bin/**",
+        "**/obj/**"
+      ],
+      "testSettings": {
+        "testComponents": true,
+        "testForms": true,
+        "testAccessibility": true,
+        "testFramework": "jest"
+      }
+    },
+    "css": {
+      "enabled": true,
+      "extensions": [".css", ".less", ".scss"],
+      "excludePatterns": [
+        "*.min.css",
+        "**/node_modules/**"
+      ],
+      "testSettings": {
+        "testCompilation": true,
+        "testVariables": true,
+        "testMixins": true
+      }
+    }
+  },
+  "templates": {
+    "csharp": {
+      "unitTest": "./templates/csharp/unit-test.mustache",
+      "integrationTest": "./templates/csharp/integration-test.mustache",
+      "controllerTest": "./templates/csharp/controller-test.mustache",
+      "serviceTest": "./templates/csharp/service-test.mustache"
+    },
+    "typescript": {
+      "unitTest": "./templates/typescript/unit-test.mustache",
+      "componentTest": "./templates/typescript/component-test.mustache",
+      "serviceTest": "./templates/typescript/service-test.mustache"
+    },
+    "html": {
+      "componentTest": "./templates/html/component-test.mustache",
+      "formTest": "./templates/html/form-test.mustache"
+    }
+  },
+  "output": {
+    "overwriteExisting": false,
+    "createBackups": true,
+    "generateReports": true,
+    "reportFormats": ["html", "json"],
+    "groupTestsByType": true,
+    "testFileNaming": "{SourceFileName}Tests.{Extension}"
+  },
+  "logging": {
+    "level": "Information",
+    "logToFile": true,
+    "logFilePath": "./logs/testgen.log",
+    "includeTimestamp": true,
+    "includeStackTrace": false
+  },
+  "performance": {
+    "maxConcurrency": 4,
+    "enableCaching": true,
+    "cacheDirectory": "./.testgen-cache",
+    "timeoutSeconds": 300
+  },
+  "validation": {
+    "compileGeneratedTests": true,
+    "runBasicValidation": true,
+    "checkCodeStyle": true,
+    "generateCoverageReport": false
+  }
+}

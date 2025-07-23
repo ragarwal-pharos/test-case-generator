@@ -1,0 +1,68 @@
+{{#usings}}
+using {{{.}}};
+{{/usings}}
+
+namespace {{{namespace}}}.Tests
+{
+    /// <summary>
+    /// Tests for {{{className}}} service
+    /// </summary>
+    public class {{{className}}}Tests
+    {
+        private readonly {{{className}}} _sut;
+        {{#dependencies}}
+        private readonly Mock<{{{type}}}> _{{{name}}}Mock;
+        {{/dependencies}}
+
+        public {{{className}}}Tests()
+        {
+            // Arrange - Setup mocks and dependencies
+            {{#dependencies}}
+            _{{{name}}}Mock = new Mock<{{{type}}}>();
+            {{/dependencies}}
+            
+            _sut = new {{{className}}}({{#dependencies}}_{{{name}}}Mock.Object{{#hasNext}}, {{/hasNext}}{{/dependencies}});
+        }
+
+        {{#methods}}
+        {{#testCases}}
+        /// <summary>
+        /// Test for {{{methodName}}} method - {{{scenario}}}
+        /// </summary>
+        [Fact]
+        public {{#isAsync}}async Task{{/isAsync}}{{^isAsync}}void{{/isAsync}} {{{methodName}}}_{{{scenario}}}_{{{expectedResult}}}()
+        {
+            // Arrange
+            {{#arrangeCode}}
+            {{{.}}}
+            {{/arrangeCode}}
+            {{#mockSetup}}
+            {{{.}}}
+            {{/mockSetup}}
+
+            // Act
+            {{#isAsync}}
+            var result = await _sut.{{{methodName}}}({{{parameters}}});
+            {{/isAsync}}
+            {{^isAsync}}
+            {{#hasReturnValue}}
+            var result = _sut.{{{methodName}}}({{{parameters}}});
+            {{/hasReturnValue}}
+            {{^hasReturnValue}}
+            _sut.{{{methodName}}}({{{parameters}}});
+            {{/hasReturnValue}}
+            {{/isAsync}}
+
+            // Assert
+            {{#assertions}}
+            {{{.}}}
+            {{/assertions}}
+            {{#mockVerifications}}
+            {{{.}}}
+            {{/mockVerifications}}
+        }
+
+        {{/testCases}}
+        {{/methods}}
+    }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestCaseGenerator.Templates</name>
+    </assembly>
+    <members>
+        <member name="T:TestCaseGenerator.Templates.Engine.MustacheTemplateEngine">
+            <summary>
+            Template engine implementation using Stubble (Mustache templates)
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Templates.Engine.MustacheTemplateEngine.LoadEmbeddedTemplatesAsync">
+            <summary>
+            Loads embedded templates from the assembly
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Templates.Engine.MustacheTemplateEngine.GetTemplateNameFromPath(System.String,System.String)">
+            <summary>
+            Converts file path to template name
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Templates.Engine.MustacheTemplateEngine.GetTemplateNameFromResourceName(System.String)">
+            <summary>
+            Converts resource name to template name
+            </summary>
+        </member>
+    </members>
+</doc>

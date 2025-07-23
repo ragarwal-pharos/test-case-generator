@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Test Case Generator Configuration",
+  "description": "Configuration schema for the Test Case Generator tool",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "description": "Project-level configuration",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the project"
+        },
+        "rootPath": {
+          "type": "string",
+          "description": "Root path of the project to analyze"
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "Path where generated tests will be saved"
+        },
+        "testFrameworks": {
+          "type": "object",
+          "properties": {
+            "csharp": {
+              "type": "string",
+              "enum": ["xunit", "nunit", "mstest"],
+              "description": "Test framework for C# tests"
+            },
+            "typescript": {
+              "type": "string",
+              "enum": ["jest", "mocha", "jasmine"],
+              "description": "Test framework for TypeScript tests"
+            }
+          }
+        },
+        "sourceDirectories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of directories to analyze"
+        }
+      },
+      "required": ["rootPath", "outputPath"]
+    },
+    "analysis": {
+      "type": "object",
+      "description": "Analysis configuration",
+      "properties": {
+        "includePrivateMethods": {
+          "type": "boolean",
+          "description": "Whether to analyze private methods"
+        },
+        "includeInternalMethods": {
+          "type": "boolean",
+          "description": "Whether to analyze internal methods"
+        },
+        "generateMocks": {
+          "type": "boolean",
+          "description": "Whether to generate mock objects"
+        },
+        "analyzeDependencies": {
+          "type": "boolean",
+          "description": "Whether to analyze dependencies"
+        },
+        "maxDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Maximum depth for dependency analysis"
+        },
+        "excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Patterns to exclude from analysis"
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "description": "Test generation configuration",
+      "properties": {
+        "testNamingConvention": {
+          "type": "string",
+          "enum": [
+            "MethodName_Scenario_ExpectedResult",
+            "Should_ExpectedResult_When_Scenario",
+            "Given_When_Then"
+          ],
+          "description": "Naming convention for generated tests"
+        },
+        "includeArrangeActAssert": {
+          "type": "boolean",
+          "description": "Whether to include AAA comments in tests"
+        },
+        "generateTestData": {
+          "type": "boolean",
+          "description": "Whether to generate test data"
+        },
+        "generateNegativeTests": {
+          "type": "boolean",
+          "description": "Whether to generate negative test cases"
+        },
+        "includeDocumentation": {
+          "type": "boolean",
+          "description": "Whether to include documentation in tests"
+        },
+        "testMethodPrefix": {
+          "type": "string",
+          "description": "Prefix for test method names"
+        },
+        "mockFramework": {
+          "type": "string",
+          "enum": ["Moq", "NSubstitute", "FakeItEasy"],
+          "description": "Mock framework to use"
+        }
+      }
+    },
+    "fileTypes": {
+      "type": "object",
+      "description": "File type specific configuration",
+      "properties": {
+        "csharp": {
+          "$ref": "#/definitions/fileTypeConfig"
+        },
+        "typescript": {
+          "$ref": "#/definitions/fileTypeConfig"
+        },
+        "html": {
+          "$ref": "#/definitions/fileTypeConfig"
+        },
+        "css": {
+          "$ref": "#/definitions/fileTypeConfig"
+        }
+      }
+    },
+    "templates": {
+      "type": "object",
+      "description": "Template configuration",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "description": "Output configuration",
+      "properties": {
+        "overwriteExisting": {
+          "type": "boolean",
+          "description": "Whether to overwrite existing test files"
+        },
+        "createBackups": {
+          "type": "boolean",
+          "description": "Whether to create backups of existing files"
+        },
+        "generateReports": {
+          "type": "boolean",
+          "description": "Whether to generate analysis reports"
+        },
+        "reportFormats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["html", "json", "xml", "csv"]
+          },
+          "description": "Report output formats"
+        },
+        "groupTestsByType": {
+          "type": "boolean",
+          "description": "Whether to group tests by type"
+        },
+        "testFileNaming": {
+          "type": "string",
+          "description": "Naming pattern for test files"
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "Logging configuration",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["Trace", "Debug", "Information", "Warning", "Error", "Critical"],
+          "description": "Logging level"
+        },
+        "logToFile": {
+          "type": "boolean",
+          "description": "Whether to log to file"
+        },
+        "logFilePath": {
+          "type": "string",
+          "description": "Path to log file"
+        },
+        "includeTimestamp": {
+          "type": "boolean",
+          "description": "Whether to include timestamps in logs"
+        },
+        "includeStackTrace": {
+          "type": "boolean",
+          "description": "Whether to include stack traces in error logs"
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "description": "Performance configuration",
+      "properties": {
+        "maxConcurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Maximum number of concurrent operations"
+        },
+        "enableCaching": {
+          "type": "boolean",
+          "description": "Whether to enable caching"
+        },
+        "cacheDirectory": {
+          "type": "string",
+          "description": "Directory for cache files"
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 3600,
+          "description": "Timeout for operations in seconds"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation configuration",
+      "properties": {
+        "compileGeneratedTests": {
+          "type": "boolean",
+          "description": "Whether to compile generated tests for validation"
+        },
+        "runBasicValidation": {
+          "type": "boolean",
+          "description": "Whether to run basic validation on generated tests"
+        },
+        "checkCodeStyle": {
+          "type": "boolean",
+          "description": "Whether to check code style of generated tests"
+        },
+        "generateCoverageReport": {
+          "type": "boolean",
+          "description": "Whether to generate coverage reports"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "fileTypeConfig": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this file type is enabled"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File extensions to process"
+        },
+        "excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Patterns to exclude"
+        },
+        "testSettings": {
+          "type": "object",
+          "description": "Test-specific settings for this file type"
+        }
+      }
+    }
+  },
+  "required": ["project"]
+}

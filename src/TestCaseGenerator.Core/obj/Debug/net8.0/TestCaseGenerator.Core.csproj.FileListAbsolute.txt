@@ -1,0 +1,14 @@
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.csproj.AssemblyReference.cache
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.AssemblyInfoInputs.cache
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.AssemblyInfo.cs
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.csproj.CoreCompileInputs.cache
+D:\test case generator\src\TestCaseGenerator.Core\bin\Debug\net8.0\TestCaseGenerator.Core.deps.json
+D:\test case generator\src\TestCaseGenerator.Core\bin\Debug\net8.0\TestCaseGenerator.Core.dll
+D:\test case generator\src\TestCaseGenerator.Core\bin\Debug\net8.0\TestCaseGenerator.Core.pdb
+D:\test case generator\src\TestCaseGenerator.Core\bin\Debug\net8.0\TestCaseGenerator.Core.xml
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.dll
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\refint\TestCaseGenerator.Core.dll
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.xml
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\TestCaseGenerator.Core.pdb
+D:\test case generator\src\TestCaseGenerator.Core\obj\Debug\net8.0\ref\TestCaseGenerator.Core.dll

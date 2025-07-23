@@ -1,0 +1,927 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestCaseGenerator.Core</name>
+    </assembly>
+    <members>
+        <member name="T:TestCaseGenerator.Core.Configuration.TestGeneratorConfig">
+            <summary>
+            Main configuration class for the Test Case Generator
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Project">
+            <summary>
+            Project configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Analysis">
+            <summary>
+            Analysis configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Generation">
+            <summary>
+            Generation configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.FileTypes">
+            <summary>
+            File type specific configurations
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Templates">
+            <summary>
+            Template configurations
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Output">
+            <summary>
+            Output configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Logging">
+            <summary>
+            Logging configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Performance">
+            <summary>
+            Performance configuration settings
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.TestGeneratorConfig.Validation">
+            <summary>
+            Validation configuration settings
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.ProjectConfig">
+            <summary>
+            Project-level configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ProjectConfig.Name">
+            <summary>
+            Name of the project
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ProjectConfig.RootPath">
+            <summary>
+            Root path of the project to analyze
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ProjectConfig.OutputPath">
+            <summary>
+            Path where generated tests will be saved
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ProjectConfig.TestFrameworks">
+            <summary>
+            Test frameworks to use for different languages
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ProjectConfig.SourceDirectories">
+            <summary>
+            Source directories to analyze
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.AnalysisConfig">
+            <summary>
+            Analysis configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.IncludePrivateMethods">
+            <summary>
+            Whether to analyze private methods
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.IncludeInternalMethods">
+            <summary>
+            Whether to analyze internal methods
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.GenerateMocks">
+            <summary>
+            Whether to generate mock objects for dependencies
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.AnalyzeDependencies">
+            <summary>
+            Whether to analyze dependencies between classes
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.MaxDepth">
+            <summary>
+            Maximum depth for dependency analysis
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.AnalysisConfig.ExcludePatterns">
+            <summary>
+            Patterns to exclude from analysis
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.GenerationConfig">
+            <summary>
+            Test generation configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.TestNamingConvention">
+            <summary>
+            Naming convention for generated test methods
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.IncludeArrangeActAssert">
+            <summary>
+            Whether to include Arrange-Act-Assert comments in tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.GenerateTestData">
+            <summary>
+            Whether to generate test data automatically
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.GenerateNegativeTests">
+            <summary>
+            Whether to generate negative test cases
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.IncludeDocumentation">
+            <summary>
+            Whether to include documentation in generated tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.TestMethodPrefix">
+            <summary>
+            Prefix for test method names
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.GenerationConfig.MockFramework">
+            <summary>
+            Mocking framework to use
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.FileTypeConfig">
+            <summary>
+            File type specific configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.FileTypeConfig.Enabled">
+            <summary>
+            Whether this file type is enabled for processing
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.FileTypeConfig.Extensions">
+            <summary>
+            File extensions to process for this type
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.FileTypeConfig.ExcludePatterns">
+            <summary>
+            Patterns to exclude for this file type
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.FileTypeConfig.TestSettings">
+            <summary>
+            Test-specific settings for this file type
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.OutputConfig">
+            <summary>
+            Output configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.OverwriteExisting">
+            <summary>
+            Whether to overwrite existing test files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.CreateBackups">
+            <summary>
+            Whether to create backups of existing files before overwriting
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.GenerateReports">
+            <summary>
+            Whether to generate analysis reports
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.ReportFormats">
+            <summary>
+            Report output formats
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.GroupTestsByType">
+            <summary>
+            Whether to group tests by type in separate folders
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.OutputConfig.TestFileNaming">
+            <summary>
+            Naming pattern for test files
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.LoggingConfig">
+            <summary>
+            Logging configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.LoggingConfig.Level">
+            <summary>
+            Logging level
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.LoggingConfig.LogToFile">
+            <summary>
+            Whether to log to file
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.LoggingConfig.LogFilePath">
+            <summary>
+            Path to log file
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.LoggingConfig.IncludeTimestamp">
+            <summary>
+            Whether to include timestamps in logs
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.LoggingConfig.IncludeStackTrace">
+            <summary>
+            Whether to include stack traces in error logs
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.PerformanceConfig">
+            <summary>
+            Performance configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.PerformanceConfig.MaxConcurrency">
+            <summary>
+            Maximum number of concurrent operations
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.PerformanceConfig.EnableCaching">
+            <summary>
+            Whether to enable caching of analysis results
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.PerformanceConfig.CacheDirectory">
+            <summary>
+            Directory for cache files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.PerformanceConfig.TimeoutSeconds">
+            <summary>
+            Timeout for operations in seconds
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Configuration.ValidationConfig">
+            <summary>
+            Validation configuration
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ValidationConfig.CompileGeneratedTests">
+            <summary>
+            Whether to compile generated tests for validation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ValidationConfig.RunBasicValidation">
+            <summary>
+            Whether to run basic validation on generated tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ValidationConfig.CheckCodeStyle">
+            <summary>
+            Whether to check code style of generated tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Configuration.ValidationConfig.GenerateCoverageReport">
+            <summary>
+            Whether to generate coverage reports for generated tests
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Engine.TestGeneratorEngine">
+            <summary>
+            Main engine for test case generation that orchestrates the entire process
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Engine.TestGeneratorEngine.GenerateTestsAsync(TestCaseGenerator.Core.Models.GenerationRequest,System.IProgress{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Generates test cases for a project based on the provided request
+            </summary>
+            <param name="request">Generation request containing project path and configuration</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Generation result with statistics and generated files</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Engine.TestGeneratorEngine.AnalyzeFilesAsync(System.Collections.Generic.List{System.String},TestCaseGenerator.Core.Models.ProjectStructure,TestCaseGenerator.Core.Models.ExistingTestInfo,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes source files using appropriate analyzers
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Engine.TestGeneratorEngine.GenerateTestFilesAsync(System.Collections.Generic.List{TestCaseGenerator.Core.Models.AnalysisResult},System.String,System.IProgress{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Generates test files using appropriate generators
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Engine.TestGeneratorEngine.ValidateGeneratedTestsAsync(System.Collections.Generic.List{TestCaseGenerator.Core.Models.GeneratedTestFile},System.Threading.CancellationToken)">
+            <summary>
+            Validates generated test files
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer">
+            <summary>
+            Interface for analyzing source code files
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer.CanAnalyze(System.String)">
+            <summary>
+            Determines if this analyzer can analyze the given file
+            </summary>
+            <param name="filePath">Path to the file to analyze</param>
+            <returns>True if the analyzer can handle this file type</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer.AnalyzeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes a source code file and returns analysis results
+            </summary>
+            <param name="filePath">Path to the file to analyze</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Analysis results</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer.AnalyzeBatchAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Analyzes multiple files in batch
+            </summary>
+            <param name="filePaths">Paths to the files to analyze</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Analysis results for each file</returns>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer.SupportedExtensions">
+            <summary>
+            Gets the supported file extensions for this analyzer
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Interfaces.ICodeAnalyzer.Name">
+            <summary>
+            Gets the analyzer name
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.ITestGenerator">
+            <summary>
+            Interface for generating test cases
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITestGenerator.CanGenerate(TestCaseGenerator.Core.Models.AnalysisResult)">
+            <summary>
+            Determines if this generator can generate tests for the given analysis result
+            </summary>
+            <param name="analysisResult">Analysis result to check</param>
+            <returns>True if the generator can handle this analysis result</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITestGenerator.GenerateTestsAsync(TestCaseGenerator.Core.Models.AnalysisResult,System.Threading.CancellationToken)">
+            <summary>
+            Generates test cases based on analysis results
+            </summary>
+            <param name="analysisResult">Analysis result to generate tests for</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Generated test cases</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITestGenerator.GenerateTestFilesAsync(System.Collections.Generic.IEnumerable{TestCaseGenerator.Core.Models.AnalysisResult},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Generates test files based on analysis results
+            </summary>
+            <param name="analysisResults">Analysis results to generate tests for</param>
+            <param name="outputPath">Path where test files should be generated</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Generated test files</returns>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Interfaces.ITestGenerator.TestFramework">
+            <summary>
+            Gets the supported test framework for this generator
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Interfaces.ITestGenerator.Name">
+            <summary>
+            Gets the generator name
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.IFileProcessor">
+            <summary>
+            Interface for processing files in a project
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IFileProcessor.DiscoverFilesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Discovers files in a project that can be analyzed
+            </summary>
+            <param name="projectPath">Path to the project</param>
+            <param name="fileTypes">File types to include</param>
+            <param name="excludePatterns">Patterns to exclude</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>List of files to analyze</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IFileProcessor.AnalyzeProjectStructureAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes the project structure
+            </summary>
+            <param name="projectPath">Path to the project</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Project structure information</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IFileProcessor.AnalyzeExistingTestsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Discovers existing test files and analyzes them
+            </summary>
+            <param name="projectPath">Path to the project</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Information about existing tests</returns>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.ITemplateEngine">
+            <summary>
+            Interface for template engine operations
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITemplateEngine.RenderTemplateAsync(System.String,System.Object)">
+            <summary>
+            Renders a template with the given data
+            </summary>
+            <param name="templateName">Name of the template</param>
+            <param name="data">Data to render the template with</param>
+            <returns>Rendered template content</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITemplateEngine.RegisterTemplate(System.String,System.String)">
+            <summary>
+            Registers a custom template
+            </summary>
+            <param name="templateName">Name of the template</param>
+            <param name="templateContent">Template content</param>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.ITemplateEngine.LoadTemplatesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Loads templates from a directory
+            </summary>
+            <param name="templateDirectory">Directory containing templates</param>
+            <param name="cancellationToken">Cancellation token</param>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Interfaces.ITemplateEngine.AvailableTemplates">
+            <summary>
+            Gets available template names
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.IConfigurationProvider">
+            <summary>
+            Interface for configuration providers
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IConfigurationProvider.LoadConfigurationAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Loads configuration from a file
+            </summary>
+            <param name="configFilePath">Path to the configuration file</param>
+            <param name="cancellationToken">Cancellation token</param>
+            <returns>Loaded configuration</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IConfigurationProvider.SaveConfigurationAsync(TestCaseGenerator.Core.Configuration.TestGeneratorConfig,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Saves configuration to a file
+            </summary>
+            <param name="config">Configuration to save</param>
+            <param name="configFilePath">Path where to save the configuration</param>
+            <param name="cancellationToken">Cancellation token</param>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IConfigurationProvider.CreateDefaultConfiguration(System.String,TestCaseGenerator.Core.Models.ProjectStructure)">
+            <summary>
+            Creates a default configuration for a project
+            </summary>
+            <param name="projectPath">Path to the project</param>
+            <param name="projectStructure">Project structure information</param>
+            <returns>Default configuration</returns>
+        </member>
+        <member name="M:TestCaseGenerator.Core.Interfaces.IConfigurationProvider.ValidateConfiguration(TestCaseGenerator.Core.Configuration.TestGeneratorConfig)">
+            <summary>
+            Validates a configuration
+            </summary>
+            <param name="config">Configuration to validate</param>
+            <returns>Validation results</returns>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Interfaces.ValidationResult">
+            <summary>
+            Validation result for configuration
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.AnalysisResult">
+            <summary>
+            Represents the result of analyzing a source code file
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ClassInfo">
+            <summary>
+            Information about a class found during analysis
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.MethodInfo">
+            <summary>
+            Information about a method found during analysis
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.PropertyInfo">
+            <summary>
+            Information about a property found during analysis
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ConstructorInfo">
+            <summary>
+            Information about a constructor found during analysis
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ParameterInfo">
+            <summary>
+            Information about a parameter
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.AttributeInfo">
+            <summary>
+            Information about an attribute
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.DependencyInfo">
+            <summary>
+            Information about a dependency
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ExistingTestInfo">
+            <summary>
+            Information about existing tests
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestClassInfo">
+            <summary>
+            Information about an existing test class
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.AccessModifier">
+            <summary>
+            Access modifier enumeration
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.DependencyLifetime">
+            <summary>
+            Dependency lifetime enumeration
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.GenerationRequest">
+            <summary>
+            Request for generating test cases
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.ProjectPath">
+            <summary>
+            Path to the project to analyze
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.OutputPath">
+            <summary>
+            Output path for generated tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.Configuration">
+            <summary>
+            Configuration for test generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.FileTypes">
+            <summary>
+            File types to analyze
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.FilesToAnalyze">
+            <summary>
+            Specific files to analyze (optional)
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.AnalyzeExistingTests">
+            <summary>
+            Whether to analyze existing test files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.OverwriteExisting">
+            <summary>
+            Whether to overwrite existing test files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.CreateBackups">
+            <summary>
+            Whether to create backups of existing files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.ValidateGenerated">
+            <summary>
+            Whether to validate generated test files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.ExcludePatterns">
+            <summary>
+            Filters for excluding files or patterns
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationRequest.CustomTemplates">
+            <summary>
+            Custom templates to use for generation
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.GenerationStatistics">
+            <summary>
+            Statistics about test generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.FilesAnalyzed">
+            <summary>
+            Number of files analyzed
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.TestCasesGenerated">
+            <summary>
+            Number of test cases generated
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.TestMethodsGenerated">
+            <summary>
+            Number of test methods generated
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.CoveragePercentage">
+            <summary>
+            Estimated code coverage percentage
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.AnalysisTime">
+            <summary>
+            Time spent on analysis
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.GenerationTime">
+            <summary>
+            Time spent on generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.ValidationTime">
+            <summary>
+            Time spent on validation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.TestFilesCreated">
+            <summary>
+            Number of test files created
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.TestFilesUpdated">
+            <summary>
+            Number of test files updated
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.ClassesCovered">
+            <summary>
+            Number of classes covered by tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.MethodsCovered">
+            <summary>
+            Number of methods covered by tests
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.PhaseTimings">
+            <summary>
+            Timing breakdown for different phases
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.ExistingTestFiles">
+            <summary>
+            Number of existing test files found
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.ExistingTestMethods">
+            <summary>
+            Number of existing test methods found
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.DependenciesDetected">
+            <summary>
+            Number of dependencies detected
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.MocksGenerated">
+            <summary>
+            Number of mock objects created
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.AssertionsGenerated">
+            <summary>
+            Number of assertions generated
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.FilesSkipped">
+            <summary>
+            Number of files skipped due to errors
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.WarningsCount">
+            <summary>
+            Number of warnings encountered
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.FileTypeBreakdown">
+            <summary>
+            Breakdown of file types analyzed
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.TestFrameworkBreakdown">
+            <summary>
+            Breakdown of test frameworks used
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.MemoryUsageBytes">
+            <summary>
+            Memory usage during generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.GenerationStatistics.PeakMemoryUsageBytes">
+            <summary>
+            Peak memory usage during generation
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ProjectStructure">
+            <summary>
+            Represents the structure of a project being analyzed
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.ProjectReference">
+            <summary>
+            Information about a project reference
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.PackageReference">
+            <summary>
+            Information about a NuGet package reference
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.SourceFolder">
+            <summary>
+            Information about a source folder
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestFolder">
+            <summary>
+            Information about a test folder
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.NuGetInfo">
+            <summary>
+            Information about NuGet packages in the project
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestFrameworkInfo">
+            <summary>
+            Information about detected test frameworks
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.MockingFrameworkInfo">
+            <summary>
+            Information about detected mocking frameworks
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.AssertionLibraryInfo">
+            <summary>
+            Information about assertion libraries
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.BuildInfo">
+            <summary>
+            Build information
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.PackageType">
+            <summary>
+            Package types
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.FolderType">
+            <summary>
+            Folder types
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestingPattern">
+            <summary>
+            Testing patterns
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestFrameworkType">
+            <summary>
+            Test framework types
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.MockingFrameworkType">
+            <summary>
+            Mocking framework types
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.AssertionLibraryType">
+            <summary>
+            Assertion library types
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestCase">
+            <summary>
+            Represents a generated test case
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.GenerationResult">
+            <summary>
+            Represents the result of test generation
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.GeneratedTestFile">
+            <summary>
+            Represents a generated test file
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestType">
+            <summary>
+            Types of tests that can be generated
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Core.Models.TestGenerationResult">
+            <summary>
+            Result of test generation operation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.Success">
+            <summary>
+            Whether the generation was successful
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.GeneratedTests">
+            <summary>
+            Generated test cases
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.AnalysisResults">
+            <summary>
+            Analysis results for processed files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.Errors">
+            <summary>
+            Errors encountered during generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.Warnings">
+            <summary>
+            Warnings encountered during generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.Statistics">
+            <summary>
+            Performance and statistical information
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.Duration">
+            <summary>
+            Total duration of the generation process
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.StartTime">
+            <summary>
+            Timestamp when generation started
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.EndTime">
+            <summary>
+            Timestamp when generation completed
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.ConfigurationUsed">
+            <summary>
+            Configuration used for generation
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.OutputPath">
+            <summary>
+            Output path where tests were generated
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.GeneratedFilePaths">
+            <summary>
+            Paths of generated test files
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.BackupFiles">
+            <summary>
+            Files that were backed up before overwriting
+            </summary>
+        </member>
+        <member name="P:TestCaseGenerator.Core.Models.TestGenerationResult.ValidationResults">
+            <summary>
+            Validation results for generated tests
+            </summary>
+        </member>
+    </members>
+</doc>

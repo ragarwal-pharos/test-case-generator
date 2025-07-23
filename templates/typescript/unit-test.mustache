@@ -1,0 +1,154 @@
+import { {{className}} } from '{{importPath}}';
+{{#imports}}
+import { {{name}} } from '{{path}}';
+{{/imports}}
+
+describe('{{className}}', () => {
+    let {{instanceName}}: {{className}};
+    {{#dependencies}}
+    let {{name}}Mock: jest.Mocked<{{type}}>;
+    {{/dependencies}}
+
+    beforeEach(() => {
+        // Arrange - Setup mocks and dependencies
+        {{#dependencies}}
+        {{name}}Mock = {
+            {{#methods}}
+            {{name}}: jest.fn(){{#hasNext}},{{/hasNext}}
+            {{/methods}}
+        } as jest.Mocked<{{type}}>;
+        {{/dependencies}}
+
+        {{instanceName}} = new {{className}}({{#dependencies}}{{name}}Mock{{#hasNext}}, {{/hasNext}}{{/dependencies}});
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    {{#methods}}
+    describe('{{name}}', () => {
+        {{#testCases}}
+        it('should {{expectedBehavior}} when {{scenario}}', {{#isAsync}}async {{/isAsync}}() => {
+            // Arrange
+            {{#arrangeCode}}
+            {{.}}
+            {{/arrangeCode}}
+            {{#mockSetup}}
+            {{.}}
+            {{/mockSetup}}
+
+            // Act
+            {{#isAsync}}const result = await {{/isAsync}}{{^isAsync}}const result = {{/isAsync}}{{../instanceName}}.{{../name}}({{#parameters}}{{value}}{{#hasNext}}, {{/hasNext}}{{/parameters}});
+
+            // Assert
+            {{#assertions}}
+            {{.}}
+            {{/assertions}}
+            {{#mockVerifications}}
+            {{.}}
+            {{/mockVerifications}}
+        });
+
+        {{/testCases}}
+
+        {{#hasErrorCases}}
+        it('should throw error when {{errorScenario}}', {{#isAsync}}async {{/isAsync}}() => {
+            // Arrange
+            {{#errorArrangeCode}}
+            {{.}}
+            {{/errorArrangeCode}}
+
+            // Act & Assert
+            {{#isAsync}}
+            await expect({{../instanceName}}.{{../name}}({{#parameters}}{{value}}{{#hasNext}}, {{/hasNext}}{{/parameters}}))
+                .rejects.toThrow('{{expectedErrorMessage}}');
+            {{/isAsync}}
+            {{^isAsync}}
+            expect(() => {{../instanceName}}.{{../name}}({{#parameters}}{{value}}{{#hasNext}}, {{/hasNext}}{{/parameters}}))
+                .toThrow('{{expectedErrorMessage}}');
+            {{/isAsync}}
+        });
+        {{/hasErrorCases}}
+    });
+
+    {{/methods}}
+
+    {{#hasProperties}}
+    describe('Properties', () => {
+        {{#properties}}
+        it('should get and set {{name}} correctly', () => {
+            // Arrange
+            const expected{{name}} = {{testValue}};
+
+            // Act
+            {{../instanceName}}.{{name}} = expected{{name}};
+            const actual{{name}} = {{../instanceName}}.{{name}};
+
+            // Assert
+            expect(actual{{name}}).toBe(expected{{name}});
+        });
+
+        {{/properties}}
+    });
+    {{/hasProperties}}
+
+    {{#hasTypeTests}}
+    describe('Type Safety', () => {
+        {{#typeTests}}
+        it('should accept correct type for {{parameterName}}', () => {
+            // Arrange
+            const validInput: {{expectedType}} = {{validValue}};
+
+            // Act & Assert
+            expect(() => {{../instanceName}}.{{methodName}}(validInput)).not.toThrow();
+        });
+
+        it('should handle undefined {{parameterName}}', () => {
+            // Arrange
+            const undefinedInput = undefined;
+
+            // Act & Assert
+            {{#shouldThrowOnUndefined}}
+            expect(() => {{../instanceName}}.{{methodName}}(undefinedInput as any)).toThrow();
+            {{/shouldThrowOnUndefined}}
+            {{^shouldThrowOnUndefined}}
+            expect(() => {{../instanceName}}.{{methodName}}(undefinedInput as any)).not.toThrow();
+            {{/shouldThrowOnUndefined}}
+        });
+        {{/typeTests}}
+    });
+    {{/hasTypeTests}}
+
+    {{#hasAsyncTests}}
+    describe('Async Behavior', () => {
+        {{#asyncTests}}
+        it('should handle {{methodName}} promise resolution', async () => {
+            // Arrange
+            const expectedResult = {{expectedValue}};
+            {{#mockSetup}}
+            {{.}}
+            {{/mockSetup}}
+
+            // Act
+            const result = await {{../instanceName}}.{{methodName}}({{#parameters}}{{value}}{{#hasNext}}, {{/hasNext}}{{/parameters}});
+
+            // Assert
+            expect(result).toBe(expectedResult);
+        });
+
+        it('should handle {{methodName}} promise rejection', async () => {
+            // Arrange
+            const expectedError = new Error('{{errorMessage}}');
+            {{#errorMockSetup}}
+            {{.}}
+            {{/errorMockSetup}}
+
+            // Act & Assert
+            await expect({{../instanceName}}.{{methodName}}({{#parameters}}{{value}}{{#hasNext}}, {{/hasNext}}{{/parameters}}))
+                .rejects.toThrow('{{errorMessage}}');
+        });
+        {{/asyncTests}}
+    });
+    {{/hasAsyncTests}}
+});

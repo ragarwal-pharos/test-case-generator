@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestCaseGenerator.Analyzers</name>
+    </assembly>
+    <members>
+        <member name="T:TestCaseGenerator.Analyzers.Common.FileProcessor">
+            <summary>
+            Processes files and analyzes project structure
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.DiscoverFilesRecursiveAsync(System.String,System.Collections.Generic.HashSet{System.String},System.Collections.Generic.List{System.Text.RegularExpressions.Regex},System.Collections.Generic.List{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Recursively discovers files matching criteria
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.GetFileExtensions(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gets file extensions for specified file types
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeProjectFileAsync(System.String,TestCaseGenerator.Core.Models.ProjectStructure,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes a project file to extract project information
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeSolutionFileAsync(System.String,TestCaseGenerator.Core.Models.ProjectStructure,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes solution file to extract solution-level information
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeFolderStructureAsync(System.String,TestCaseGenerator.Core.Models.ProjectStructure,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes folder structure to categorize source folders
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeDirectoryAsync(System.IO.DirectoryInfo,System.Collections.Generic.List{TestCaseGenerator.Core.Models.SourceFolder},System.Threading.CancellationToken)">
+            <summary>
+            Recursively analyzes directory structure
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeNuGetPackagesAsync(System.String,TestCaseGenerator.Core.Models.ProjectStructure,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes NuGet packages to detect frameworks and libraries
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeTestFrameworksAsync(System.String,TestCaseGenerator.Core.Models.ExistingTestInfo,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes test frameworks in the project
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.AnalyzeTestFileAsync(System.String,TestCaseGenerator.Core.Models.ExistingTestInfo,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes an individual test file
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.Common.FileProcessor.FindConfigurationFiles(System.String)">
+            <summary>
+            Finds configuration files in the project
+            </summary>
+        </member>
+        <member name="T:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer">
+            <summary>
+            Analyzes C# source files to extract class, method, and dependency information
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.AnalyzeClassAsync(Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Analyzes a C# class declaration
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.AnalyzeMethod(Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax)">
+            <summary>
+            Analyzes a method declaration
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.AnalyzeProperty(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax)">
+            <summary>
+            Analyzes a property declaration
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.AnalyzeConstructor(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax)">
+            <summary>
+            Analyzes a constructor declaration
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.AnalyzeDependencies(System.Collections.Generic.List{TestCaseGenerator.Core.Models.ClassInfo})">
+            <summary>
+            Analyzes dependencies between classes
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.ExtractAttributes(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax})">
+            <summary>
+            Extracts attributes from attribute lists
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.GetAccessModifier(Microsoft.CodeAnalysis.SyntaxTokenList)">
+            <summary>
+            Gets the access modifier from syntax tokens
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.CalculateCyclomaticComplexity(Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax)">
+            <summary>
+            Calculates cyclomatic complexity for a method
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.IsController(System.String,Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)">
+            <summary>
+            Determines if a class is a controller
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.IsService(System.String,Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)">
+            <summary>
+            Determines if a class is a service
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.IsRepository(System.String,Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)">
+            <summary>
+            Determines if a class is a repository
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.IsInterface(System.String)">
+            <summary>
+            Determines if a type is an interface
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.IsServiceType(System.String)">
+            <summary>
+            Determines if a type is likely a service type
+            </summary>
+        </member>
+        <member name="M:TestCaseGenerator.Analyzers.CSharp.CSharpAnalyzer.DetermineDependencyLifetime(System.String)">
+            <summary>
+            Determines the dependency lifetime based on type name
+            </summary>
+        </member>
+    </members>
+</doc>
