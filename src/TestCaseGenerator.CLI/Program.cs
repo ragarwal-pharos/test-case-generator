@@ -63,7 +63,7 @@ class Program
         services.AddLogging(builder =>
         {
             builder.AddConsole();
-            builder.SetMinimumLevel(LogLevel.Information);
+            builder.SetMinimumLevel(LogLevel.Warning);
         });
 
         // Core services
@@ -116,14 +116,10 @@ class Program
             // Create generation request
             var request = CreateGenerationRequest(options, config);
 
-            // Execute generation with progress reporting
-            var result = await progressService.ExecuteWithProgressAsync(
-                "Generating test cases...",
-                async (progress) =>
-                {
-                    progress.Report("Analyzing project structure...");
-                    return await engine.GenerateTestsAsync(request);
-                });
+            // Execute generation with simplified progress reporting
+            var result = await progressService.ShowStatusAsync(
+                "🧪 Generating test cases...",
+                async () => await engine.GenerateTestsAsync(request));
 
             // Report results
             await reportingService.ReportResultsAsync(result, options.OutputPath);
@@ -291,7 +287,7 @@ class Program
             }
 
             // Create default configuration
-            logger.LogInformation("No configuration file found, using default settings");
+            logger.LogDebug("No configuration file found, using default settings");
             var projectPath = options.ProjectPath ?? Directory.GetCurrentDirectory();
             var fileProcessor = new FileProcessor(serviceProvider.GetRequiredService<ILogger<FileProcessor>>());
             var projectStructure = await fileProcessor.AnalyzeProjectStructureAsync(projectPath);

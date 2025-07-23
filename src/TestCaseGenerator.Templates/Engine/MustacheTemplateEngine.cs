@@ -58,7 +58,7 @@ public class MustacheTemplateEngine : ITemplateEngine
     {
         try
         {
-            _logger.LogInformation("Loading templates from directory: {TemplateDirectory}", templateDirectory);
+            _logger.LogDebug("Loading templates from directory: {TemplateDirectory}", templateDirectory);
 
             if (!Directory.Exists(templateDirectory))
             {
@@ -76,7 +76,7 @@ public class MustacheTemplateEngine : ITemplateEngine
                 RegisterTemplate(templateName, templateContent);
             }
 
-            _logger.LogInformation("Loaded {TemplateCount} templates from {TemplateDirectory}", 
+            _logger.LogDebug("Loaded {TemplateCount} templates from {TemplateDirectory}", 
                 templateFiles.Length, templateDirectory);
         }
         catch (Exception ex)
@@ -95,18 +95,18 @@ public class MustacheTemplateEngine : ITemplateEngine
         {
             var assembly = Assembly.GetExecutingAssembly();
             var allResourceNames = assembly.GetManifestResourceNames();
-            _logger.LogInformation("All embedded resources: {Resources}", string.Join(", ", allResourceNames));
+            _logger.LogDebug("All embedded resources: {Resources}", string.Join(", ", allResourceNames));
             
             var resourceNames = allResourceNames
                 .Where(name => name.Contains("Templates") && name.EndsWith(".mustache"))
                 .ToList();
 
-            _logger.LogInformation("Found {ResourceCount} embedded template resources: {Resources}", 
+            _logger.LogDebug("Found {ResourceCount} embedded template resources: {Resources}", 
                 resourceNames.Count, string.Join(", ", resourceNames));
 
             foreach (var resourceName in resourceNames)
             {
-                _logger.LogInformation("Processing resource: {ResourceName}", resourceName);
+                _logger.LogDebug("Processing resource: {ResourceName}", resourceName);
                 
                 using var stream = assembly.GetManifestResourceStream(resourceName);
                 if (stream == null) 
@@ -119,14 +119,14 @@ public class MustacheTemplateEngine : ITemplateEngine
                 var templateContent = await reader.ReadToEndAsync();
                 
                 var templateName = GetTemplateNameFromResourceName(resourceName);
-                _logger.LogInformation("Mapped resource '{ResourceName}' to template name '{TemplateName}'", resourceName, templateName);
+                _logger.LogDebug("Mapped resource '{ResourceName}' to template name '{TemplateName}'", resourceName, templateName);
                 
                 RegisterTemplate(templateName, templateContent);
-                _logger.LogInformation("Registered template '{TemplateName}' with content length {Length}", templateName, templateContent.Length);
+                _logger.LogDebug("Registered template '{TemplateName}' with content length {Length}", templateName, templateContent.Length);
             }
 
-            _logger.LogInformation("Loaded {TemplateCount} embedded templates", resourceNames.Count);
-            _logger.LogInformation("Available templates after loading: {AvailableTemplates}", string.Join(", ", _templates.Keys));
+            _logger.LogDebug("Loaded {TemplateCount} embedded templates", resourceNames.Count);
+            _logger.LogDebug("Available templates after loading: {AvailableTemplates}", string.Join(", ", _templates.Keys));
         }
         catch (Exception ex)
         {

@@ -27,11 +27,11 @@ public class ReportingService
             // Summary statistics
             DisplaySummaryStatistics(result);
 
-            // Generated test files
-            if (result.TestCases.Any())
-            {
-                DisplayGeneratedTests(result.TestCases);
-            }
+            // Generated test files - commented out for clean output
+            // if (result.TestCases.Any())
+            // {
+            //     DisplayGeneratedTests(result.TestCases);
+            // }
 
             // Analysis results - not available in GenerationResult
             // if (result.AnalysisResults.Any())

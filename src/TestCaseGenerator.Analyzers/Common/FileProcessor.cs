@@ -25,7 +25,7 @@ public class FileProcessor : IFileProcessor
         IEnumerable<string> excludePatterns, 
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Discovering files in project: {ProjectPath}", projectPath);
+        _logger.LogDebug("Discovering files in project: {ProjectPath}", projectPath);
 
         var files = new List<string>();
         var allowedExtensions = GetFileExtensions(fileTypes);
@@ -35,13 +35,13 @@ public class FileProcessor : IFileProcessor
 
         await DiscoverFilesRecursiveAsync(projectPath, allowedExtensions, excludeRegexes, files, cancellationToken);
 
-        _logger.LogInformation("Discovered {FileCount} files matching criteria", files.Count);
+        _logger.LogDebug("Discovered {FileCount} files matching criteria", files.Count);
         return files;
     }
 
     public async Task<ProjectStructure> AnalyzeProjectStructureAsync(string projectPath, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Analyzing project structure: {ProjectPath}", projectPath);
+        _logger.LogDebug("Analyzing project structure: {ProjectPath}", projectPath);
 
         var projectStructure = new ProjectStructure
         {
@@ -79,7 +79,7 @@ public class FileProcessor : IFileProcessor
             // Find configuration files
             projectStructure.ConfigurationFiles = FindConfigurationFiles(projectPath);
 
-            _logger.LogInformation("Project structure analysis completed. Found {ProjectType} project with {PackageCount} packages", 
+            _logger.LogDebug("Project structure analysis completed. Found {ProjectType} project with {PackageCount} packages", 
                 projectStructure.ProjectType, projectStructure.Packages.Count);
 
             return projectStructure;
@@ -93,7 +93,7 @@ public class FileProcessor : IFileProcessor
 
     public async Task<ExistingTestInfo> AnalyzeExistingTestsAsync(string projectPath, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Analyzing existing tests in project: {ProjectPath}", projectPath);
+        _logger.LogDebug("Analyzing existing tests in project: {ProjectPath}", projectPath);
 
         var existingTestInfo = new ExistingTestInfo();
 
@@ -128,7 +128,7 @@ public class FileProcessor : IFileProcessor
                 }
             }
 
-            _logger.LogInformation("Existing tests analysis completed. Found {TestFileCount} test files using {Framework} framework", 
+            _logger.LogDebug("Existing tests analysis completed. Found {TestFileCount} test files using {Framework} framework", 
                 existingTestInfo.TestFiles.Count, existingTestInfo.TestFramework);
 
             return existingTestInfo;

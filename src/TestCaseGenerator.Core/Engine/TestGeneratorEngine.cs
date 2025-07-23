@@ -48,35 +48,35 @@ public class TestGeneratorEngine
 
         try
         {
-            _logger.LogInformation("Starting test generation for project: {ProjectPath}", request.ProjectPath);
+            _logger.LogDebug("Starting test generation for project: {ProjectPath}", request.ProjectPath);
 
             // Phase 1: Analyze project structure
             var structureStopwatch = Stopwatch.StartNew();
-            _logger.LogInformation("Phase 1: Analyzing project structure...");
+            _logger.LogDebug("Phase 1: Analyzing project structure...");
             
             var projectStructure = await _fileProcessor.AnalyzeProjectStructureAsync(request.ProjectPath, cancellationToken);
             request.Configuration.Project.Name = projectStructure.ProjectName;
             
             phaseTimings["ProjectStructureAnalysis"] = structureStopwatch.Elapsed;
-            _logger.LogInformation("Project structure analysis completed in {Duration}ms", structureStopwatch.ElapsedMilliseconds);
+            _logger.LogDebug("Project structure analysis completed in {Duration}ms", structureStopwatch.ElapsedMilliseconds);
 
             // Phase 2: Analyze existing tests (if requested)
             ExistingTestInfo? existingTests = null;
             if (request.AnalyzeExistingTests)
             {
                 var existingTestsStopwatch = Stopwatch.StartNew();
-                _logger.LogInformation("Phase 2: Analyzing existing tests...");
+                _logger.LogDebug("Phase 2: Analyzing existing tests...");
                 
                 existingTests = await _fileProcessor.AnalyzeExistingTestsAsync(request.ProjectPath, cancellationToken);
                 
                 phaseTimings["ExistingTestsAnalysis"] = existingTestsStopwatch.Elapsed;
-                _logger.LogInformation("Existing tests analysis completed in {Duration}ms. Found {TestCount} existing test files", 
+                _logger.LogDebug("Existing tests analysis completed in {Duration}ms. Found {TestCount} existing test files", 
                     existingTestsStopwatch.ElapsedMilliseconds, existingTests.TestFiles.Count);
             }
 
             // Phase 3: Discover files to analyze
             var discoveryStopwatch = Stopwatch.StartNew();
-            _logger.LogInformation("Phase 3: Discovering files to analyze...");
+            _logger.LogDebug("Phase 3: Discovering files to analyze...");
             
             var filesToAnalyze = request.FilesToAnalyze?.Any() == true 
                 ? request.FilesToAnalyze 
@@ -87,41 +87,41 @@ public class TestGeneratorEngine
                     cancellationToken);
 
             phaseTimings["FileDiscovery"] = discoveryStopwatch.Elapsed;
-            _logger.LogInformation("File discovery completed in {Duration}ms. Found {FileCount} files to analyze", 
+            _logger.LogDebug("File discovery completed in {Duration}ms. Found {FileCount} files to analyze", 
                 discoveryStopwatch.ElapsedMilliseconds, filesToAnalyze.Count);
 
             result.Statistics.FilesAnalyzed = filesToAnalyze.Count;
 
             // Phase 4: Analyze source files
             var analysisStopwatch = Stopwatch.StartNew();
-            _logger.LogInformation("Phase 4: Analyzing source files...");
+            _logger.LogDebug("Phase 4: Analyzing source files...");
             
             var analysisResults = await AnalyzeFilesAsync(filesToAnalyze, projectStructure, existingTests, cancellationToken);
             
             phaseTimings["SourceAnalysis"] = analysisStopwatch.Elapsed;
-            _logger.LogInformation("Source analysis completed in {Duration}ms. Analyzed {ResultCount} files successfully", 
+            _logger.LogDebug("Source analysis completed in {Duration}ms. Analyzed {ResultCount} files successfully", 
                 analysisStopwatch.ElapsedMilliseconds, analysisResults.Count);
 
             // Phase 5: Generate test cases
             var generationStopwatch = Stopwatch.StartNew();
-            _logger.LogInformation("Phase 5: Generating test cases...");
+            _logger.LogDebug("Phase 5: Generating test cases...");
             
             var generatedFiles = await GenerateTestFilesAsync(analysisResults, request.OutputPath, cancellationToken);
             
             phaseTimings["TestGeneration"] = generationStopwatch.Elapsed;
-            _logger.LogInformation("Test generation completed in {Duration}ms. Generated {FileCount} test files", 
+            _logger.LogDebug("Test generation completed in {Duration}ms. Generated {FileCount} test files", 
                 generationStopwatch.ElapsedMilliseconds, generatedFiles.Count);
 
             // Phase 6: Validate generated tests (if requested)
             if (request.ValidateGenerated)
             {
                 var validationStopwatch = Stopwatch.StartNew();
-                _logger.LogInformation("Phase 6: Validating generated tests...");
+                _logger.LogDebug("Phase 6: Validating generated tests...");
                 
                 await ValidateGeneratedTestsAsync(generatedFiles, cancellationToken);
                 
                 phaseTimings["Validation"] = validationStopwatch.Elapsed;
-                _logger.LogInformation("Test validation completed in {Duration}ms", validationStopwatch.ElapsedMilliseconds);
+                _logger.LogDebug("Test validation completed in {Duration}ms", validationStopwatch.ElapsedMilliseconds);
             }
 
             // Populate result
@@ -144,7 +144,7 @@ public class TestGeneratorEngine
             stopwatch.Stop();
             result.Duration = stopwatch.Elapsed;
 
-            _logger.LogInformation("Test generation completed successfully in {Duration}ms. Generated {TestCases} test cases across {Files} files", 
+            _logger.LogDebug("Test generation completed successfully in {Duration}ms. Generated {TestCases} test cases across {Files} files", 
                 stopwatch.ElapsedMilliseconds, result.Statistics.TestCasesGenerated, result.Statistics.TestFilesCreated + result.Statistics.TestFilesUpdated);
 
             return result;

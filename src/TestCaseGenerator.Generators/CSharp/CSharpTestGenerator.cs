@@ -151,7 +151,7 @@ public class CSharpTestGenerator : ITestGenerator
         {
             if (Directory.Exists(outputPath))
             {
-                _logger.LogInformation("Cleaning up old test folder: {OutputPath}", outputPath);
+                _logger.LogDebug("Cleaning up old test folder: {OutputPath}", outputPath);
                 
                 // Delete all files and subdirectories
                 var directory = new DirectoryInfo(outputPath);
@@ -166,7 +166,7 @@ public class CSharpTestGenerator : ITestGenerator
                     dir.Delete(recursive: true);
                 }
                 
-                _logger.LogInformation("Successfully cleaned up old test folder");
+                _logger.LogDebug("Successfully cleaned up old test folder");
             }
         }
         catch (Exception ex)
@@ -269,7 +269,7 @@ public class CSharpTestGenerator : ITestGenerator
         // Write the test file
         await File.WriteAllTextAsync(testFilePath, generatedFile.Content, cancellationToken);
 
-        _logger.LogInformation("Generated test file: {TestFilePath} with {TestCount} test cases", 
+        _logger.LogDebug("Generated test file: {TestFilePath} with {TestCount} test cases", 
             testFilePath, testCases.Count);
 
         return generatedFile;
