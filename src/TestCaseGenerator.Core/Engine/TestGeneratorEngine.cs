@@ -42,6 +42,18 @@ public class TestGeneratorEngine
     /// <returns>Generation result with statistics and generated files</returns>
     public async Task<GenerationResult> GenerateTestsAsync(GenerationRequest request, CancellationToken cancellationToken = default)
     {
+        return await GenerateTestsAsync(request, null, cancellationToken);
+    }
+
+    /// <summary>
+    /// Generates test cases for a project based on the provided request with progress reporting
+    /// </summary>
+    /// <param name="request">Generation request containing project path and configuration</param>
+    /// <param name="progress">Progress reporter for phase updates</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Generation result with statistics and generated files</returns>
+    public async Task<GenerationResult> GenerateTestsAsync(GenerationRequest request, IProgress<string>? progress, CancellationToken cancellationToken = default)
+    {
         var stopwatch = Stopwatch.StartNew();
         var result = new GenerationResult();
         var phaseTimings = new Dictionary<string, TimeSpan>();
@@ -53,6 +65,7 @@ public class TestGeneratorEngine
             // Phase 1: Analyze project structure
             var structureStopwatch = Stopwatch.StartNew();
             _logger.LogDebug("Phase 1: Analyzing project structure...");
+            progress?.Report("📋 Analyzing project structure...");
             
             var projectStructure = await _fileProcessor.AnalyzeProjectStructureAsync(request.ProjectPath, cancellationToken);
             request.Configuration.Project.Name = projectStructure.ProjectName;
@@ -66,6 +79,7 @@ public class TestGeneratorEngine
             {
                 var existingTestsStopwatch = Stopwatch.StartNew();
                 _logger.LogDebug("Phase 2: Analyzing existing tests...");
+                progress?.Report("🔍 Analyzing existing tests...");
                 
                 existingTests = await _fileProcessor.AnalyzeExistingTestsAsync(request.ProjectPath, cancellationToken);
                 
@@ -77,6 +91,7 @@ public class TestGeneratorEngine
             // Phase 3: Discover files to analyze
             var discoveryStopwatch = Stopwatch.StartNew();
             _logger.LogDebug("Phase 3: Discovering files to analyze...");
+            progress?.Report("📁 Discovering files to analyze...");
             
             var filesToAnalyze = request.FilesToAnalyze?.Any() == true 
                 ? request.FilesToAnalyze 
@@ -95,6 +110,7 @@ public class TestGeneratorEngine
             // Phase 4: Analyze source files
             var analysisStopwatch = Stopwatch.StartNew();
             _logger.LogDebug("Phase 4: Analyzing source files...");
+            progress?.Report("🔬 Analyzing source files...");
             
             var analysisResults = await AnalyzeFilesAsync(filesToAnalyze, projectStructure, existingTests, cancellationToken);
             
@@ -105,6 +121,7 @@ public class TestGeneratorEngine
             // Phase 5: Generate test cases
             var generationStopwatch = Stopwatch.StartNew();
             _logger.LogDebug("Phase 5: Generating test cases...");
+            progress?.Report("⚡ Generating test cases...");
             
             var generatedFiles = await GenerateTestFilesAsync(analysisResults, request.OutputPath, cancellationToken);
             
@@ -117,6 +134,7 @@ public class TestGeneratorEngine
             {
                 var validationStopwatch = Stopwatch.StartNew();
                 _logger.LogDebug("Phase 6: Validating generated tests...");
+                progress?.Report("✅ Validating generated tests...");
                 
                 await ValidateGeneratedTestsAsync(generatedFiles, cancellationToken);
                 

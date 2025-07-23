@@ -116,10 +116,13 @@ class Program
             // Create generation request
             var request = CreateGenerationRequest(options, config);
 
-            // Execute generation with simplified progress reporting
-            var result = await progressService.ShowStatusAsync(
+            // Execute generation with detailed progress reporting
+            var result = await progressService.ExecuteWithProgressAsync(
                 "🧪 Generating test cases...",
-                async () => await engine.GenerateTestsAsync(request));
+                async (progress) =>
+                {
+                    return await engine.GenerateTestsAsync(request, progress);
+                });
 
             // Report results
             await reportingService.ReportResultsAsync(result, options.OutputPath);
